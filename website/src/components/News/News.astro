@@ -1,0 +1,92 @@
+---
+import './News.css';
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+---
+
+<section class="news section-padding" id="news">
+  <div class="container">
+    <h2 class="section-title text-center">{t.news.title}</h2>
+    
+    <div class="news-layout">
+      <!-- Left: Image Carousel -->
+      <div class="news-carousel-container">
+        <div class="news-carousel">
+          {t.news.items.map((item: any, idx: number) => (
+            <div class="carousel-slide">
+              <img src={item.image} alt={item.text} class="carousel-img clickable-img" data-idx={idx} />
+              <div class="carousel-caption">{item.date}</div>
+            </div>
+          ))}
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-btn prev" aria-label="Previous">❮</button>
+          <button class="carousel-btn next" aria-label="Next">❯</button>
+        </div>
+      </div>
+
+      <!-- Right: News Content -->
+      <div class="news-content">
+        {t.news.items.map((item: any) => (
+          <div class="news-item glass">
+            <div class="news-item-header">
+              <span class="news-item-date">{item.date}</span>
+              <h3 class="news-item-title">{item.text}</h3>
+            </div>
+            <p class="news-item-description">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal" id="imageModal">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="modal-close">&times;</button>
+    <img src="" alt="Modal Image" class="modal-img" />
+  </div>
+</div>
+
+<script>
+  const carousel = document.querySelector('.news-carousel');
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  const modal = document.getElementById('imageModal');
+  const modalImg = modal?.querySelector('.modal-img');
+  const modalClose = modal?.querySelector('.modal-close');
+  const modalOverlay = modal?.querySelector('.modal-overlay');
+
+  if (carousel && prevBtn && nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      carousel.scrollBy({ left: carousel.offsetWidth, behavior: 'smooth' });
+    });
+    prevBtn.addEventListener('click', () => {
+      carousel.scrollBy({ left: -carousel.offsetWidth, behavior: 'smooth' });
+    });
+  }
+
+  document.querySelectorAll('.clickable-img').forEach((img) => {
+    img.addEventListener('click', () => {
+      const src = (img as HTMLImageElement).src;
+      if (modalImg && modal) {
+        (modalImg as HTMLImageElement).src = src;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  const closeModal = () => {
+    if (modal) {
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
+
+  modalClose?.addEventListener('click', closeModal);
+  modalOverlay?.addEventListener('click', closeModal);
+</script>

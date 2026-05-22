@@ -1,0 +1,75 @@
+---
+import './Services.css';
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+
+const layerClasses = ['layer-blue', 'layer-green', 'layer-purple', 'layer-red'];
+const layerIcons = ['✦', '⟡', '❖', '◈'];
+const CONSULTORIA_URL = 'https://forms.fillout.com/t/3BTHF4Tcjhus';
+const LAYER_URLS = [
+    'https://forms.fillout.com/t/2FJfy3Us5Jus',
+    'https://forms.fillout.com/t/uUs72FGncbus',
+    'https://forms.fillout.com/t/2xXDcQMkC2us',
+    'https://forms.fillout.com/t/8p6f3aro57us'
+];
+---
+
+<section class="services section-padding" id="services">
+  <div class="container">
+    <h2 class="section-title">{t.services.title}</h2>
+    
+    <!-- Consulting Plan -->
+    <div class="consulting-plan glass fade-in">
+      <div class="consulting-header">
+        <h3>★ {t.services.consultingTitle}</h3>
+        <p>{t.services.consultingDesc}</p>
+      </div>
+      <div class="consulting-body">
+        <ul class="service-list">
+          {t.services.consultingList.map((item: string) => (
+            <li><span class="check" style="color: var(--accent-primary)">✓</span> {item}</li>
+          ))}
+        </ul>
+        <a href={CONSULTORIA_URL} target="_blank" rel="noopener" class="btn btn-primary consulting-btn" style="margin-top: auto; align-self: flex-start; display: inline-block; text-decoration: none; text-align: center;">{t.services.consultingBtn}</a>
+      </div>
+    </div>
+
+    <!-- Academic Advisory -->
+    <div class="consulting-plan glass fade-in" style="margin-top: 2rem;">
+      <div class="consulting-header">
+        <h3>★ {t.services.academicTitle}</h3>
+      </div>
+      <div class="consulting-body">
+        <ul class="service-list">
+          {t.services.academicList.map((item: string) => (
+            <li><span class="check" style="color: var(--accent-primary)">✓</span> {item}</li>
+          ))}
+        </ul>
+        <a href="https://investiga-pro.netlify.app/" target="_blank" rel="noopener" class="btn btn-primary consulting-btn" style="margin-top: auto; align-self: flex-start; display: inline-block; text-decoration: none; text-align: center;">{t.services.consultingBtn}</a>
+      </div>
+    </div>
+
+    <div class="services-grid">
+      {t.services.layers.map((layer: any, index: number) => (
+        <div class={`service-card glass ${layerClasses[index]}`}>
+          <div class="service-header">
+            <div class="service-icon">{layerIcons[index]}</div>
+            <div class="service-layer">{layer.layer}</div>
+          </div>
+          <h3 class="service-title">{layer.title}</h3>
+          <p class="service-desc">{layer.desc}</p>
+          
+          <ul class="service-list">
+            {layer.items.map((item: string) => (
+              <li><span class="check">✓</span> {item}</li>
+            ))}
+          </ul>
+          
+          <a href={LAYER_URLS[index]} target="_blank" rel="noopener" class="module-btn" style="display: inline-block; text-decoration: none; text-align: center;">{t.services.btn}</a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

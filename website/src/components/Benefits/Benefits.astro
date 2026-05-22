@@ -1,0 +1,25 @@
+---
+import './Benefits.css';
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+---
+
+<section class="benefits section-padding" id="benefits">
+  <div class="container">
+    <div class="benefits-header">
+      <h2 class="section-title">{t.benefits.title}</h2>
+    </div>
+    
+    <div class="benefits-grid">
+      {t.benefits.list.map((bnf: any, idx: number) => (
+        <div class="benefit-card fade-in" style={`animation-delay: ${idx * 0.1}s`}>
+          <div class="benefit-icon">◆</div>
+          <h3 class="benefit-title">{bnf.title}</h3>
+          <p class="benefit-desc">{bnf.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

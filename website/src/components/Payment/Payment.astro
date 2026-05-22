@@ -1,0 +1,31 @@
+---
+import './Payment.css';
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<section class="payment section-padding" id="payment">
+  <div class="container">
+    <h2 class="section-title text-center">{t.payment.title}</h2>
+    <p class="payment-subtitle">{t.payment.desc}</p>
+    
+    <div class="payment-methods">
+      <a href="https://paypal.me/innovationgroup" target="_blank" rel="noopener" class="payment-card glass">
+        <div class="payment-logo">
+          <img src={base + "paypal-logo.svg"} alt="PayPal" />
+        </div>
+        <span class="payment-name">PayPal</span>
+      </a>
+      
+      <a href="https://pay.binance.com" target="_blank" rel="noopener" class="payment-card glass">
+        <div class="payment-logo">
+          <img src={base + "binance.png"} alt="Binance" />
+        </div>
+        <span class="payment-name">Binance</span>
+      </a>
+    </div>
+  </div>
+</section>

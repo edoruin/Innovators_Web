@@ -1,0 +1,28 @@
+---
+import './Testimonials.css';
+interface Props {
+  t: any;
+}
+const { t } = Astro.props;
+---
+
+{t.testimonials.list.length > 0 && (
+<section class="testimonials section-padding" id="testimonials">
+  <div class="container testimonials-container">
+    <h2 class="section-title">{t.testimonials.title}</h2>
+    
+    <div class="testimonials-grid">
+        {t.testimonials.list.map((test: any) => (
+          <div class="testimonial-card glass">
+            <div class="quote-icon">"</div>
+            <p class="testimonial-text">{test.text}</p>
+            <div class="testimonial-author">
+              <h4 class="author-name">{test.author}</h4>
+              <span class="author-company">{test.company}</span>
+            </div>
+          </div>
+        ))}
+    </div>
+  </div>
+</section>
+)}
